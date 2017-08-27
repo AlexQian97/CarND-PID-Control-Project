@@ -13,10 +13,12 @@ public:
   /*
   * Coefficients
   */ 
-  double Kp;
-  double Ki;
-  double Kd;
+  double Kp_;
+  double Ki_;
+  double Kd_;
 
+  double prev_cte;
+  bool first_measurement;
   /*
   * Constructor
   */
@@ -41,6 +43,8 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  double Normalize(double steer_value);
 };
 
 #endif /* PID_H */
