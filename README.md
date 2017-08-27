@@ -3,6 +3,18 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+### I implemented two PID controllers for the steering value and throttle value given the cte from the simulator. The main focus of this project is tuning the gains Kp(proportional), Ki(integral), and Kd(derivative). The higher Kp is, the harder it will steer back to expected route. High Ki will compensate the long-term error. And high Kd will compensate the osillation problem.
+
+### At first, I was going to implement a Twiddle algorithm to search for best Kp, Ki, Kd itself. However, I did not know how to implement Twiddle with this simulator as the simulator needs to be restarted after a run to test new parameters. Furthermore, it takes time to complete a lap and thousands of lap are needed for fine tuning. As a result, my laptop could be burnt before it figures out the best combination.
+
+### So I have to tune these parameters manually. I started with Kp = 0.2, Ki = 3.0, Kd = 0.004, which are used in class. The result is terrible as expected. After printing different error terms, I found that the integral part grows dramatically and leads to huge steering value. The driving behavior is a little bit better in the first several seconds when I set Ki = 0.0. However, the car will run out of the route after the first several seconds.
+
+### Then I increased Kp by 0.05 to make the car steer back when it is leaving the centerline. It proves to be effective. But the osillation problem remained unsolved.
+
+### To solve it, I increased Kd a lot and the osillation problem started to be less serious. After several tests, my PID controller finished one lap with Kp = 0.25, Ki = 0.001, Kd = 12.0.
+
+### The osillation problem has not been solved completely. The finetuning can improve the stability.
+
 ## Dependencies
 
 * cmake >= 3.5
